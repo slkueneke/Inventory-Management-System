@@ -7,7 +7,7 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { InventoryItemAddComponent } from './inventoryItem-add.component';
+import { InventoryItemAddComponent } from './inventory-item-add.component';
 import { environment } from '../../../environments/environment';
 
 describe('InventoryItemAddComponent', () => {

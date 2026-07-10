@@ -8,6 +8,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { InventoryItemAddComponent } from './Inventory/inventoryItem-add/inventoryItem-add.component';
 import { InventoryItemListComponent } from './Inventory/inventory-item-list/inventory-item-list.component';
+import { InventoryItemAddComponent } from './inventory/inventory-item-add/inventory-item-add.component';
 
 export const routes: Routes = [
     {
