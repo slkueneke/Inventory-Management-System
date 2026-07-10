@@ -6,7 +6,7 @@
  */
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { InventoryItemAddComponent } from './inventory/inventoryItem-add/inventoryItem-add.component';
+import { InventoryItemAddComponent } from './inventory/inventory-item-add/inventory-item-add.component';
 
 export const routes: Routes = [
     {
