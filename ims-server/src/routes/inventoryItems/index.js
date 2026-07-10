@@ -58,6 +58,38 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+/**
+ * GET /api/inventory-items/:id
+ * Sprint 1 | Shannon Kueneke 
+ * File: ims-server/src/routes/itemInventory/index.js
+ *
+ * Looks up a single inventory item by its MongoDB _id and returns the full
+ * document as JSON. Responds 404 (via the shared error-handler middleware)
+ * both when no document matches a well-formed id, and when the id itself is
+ * not a valid ObjectId — satisfying US-04 Task T2 ("Implement 404 error
+ * handling for invalid or non-existent item IDs").
+ */
+router.get('/:id', async (req, res, next) => {
+    try {
+        const inventoryItem = await InventoryItem.findById(req.params.id);
+
+        if (!inventoryItem) {
+            return next(createError(404, 'Inventory item not found'));
+        }
+
+        res.status(200).json(inventoryItem);
+    } catch (err) {
+        // Mongoose throws a CastError when :id isn't a validly-formatted
+        // ObjectId (e.g. "abc123") — treat that the same as "not found"
+        // rather than surfacing it as a 500 server error.
+        if (err.name === 'CastError') {
+            return next(createError(404, 'Inventory item not found'));
+        }
+        console.error(`Error while reading inventory item: ${err}`);
+        next(err);
+    }
+});
+
 module.exports = router;
 
 
