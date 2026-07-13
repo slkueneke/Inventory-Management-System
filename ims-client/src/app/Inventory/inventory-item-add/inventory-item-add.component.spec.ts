@@ -67,7 +67,7 @@ describe('InventoryItemAddComponent', () => {
         component.itemForm.patchValue(payload);
         component.onSubmit();
 
-        const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventoryItems`);
+        const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventory-items`);
         expect(req.request.method).toBe('POST');
         expect(req.request.body).toEqual(payload);
 
@@ -92,7 +92,7 @@ describe('InventoryItemAddComponent', () => {
         component.itemForm.patchValue(payload);
         component.onSubmit();
 
-        const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventoryItems`);
+        const req = httpMock.expectOne(`${environment.apiBaseUrl}/api/inventory-items`);
         expect(req.request.method).toBe('POST');
 
         req.flush(

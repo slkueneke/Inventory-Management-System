@@ -48,11 +48,10 @@ let inventoryItemSchema = new Schema({
 });
 
 // Keep dateModified current whenever an existing document is updated
-inventoryItemSchema.pre('save', function (next) {
+inventoryItemSchema.pre('save', function () {
   if (!this.isNew) {
     this.dateModified = new Date();
   }
-  next();
 });
 
 module.exports = {

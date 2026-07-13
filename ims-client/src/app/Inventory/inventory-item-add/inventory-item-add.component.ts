@@ -147,7 +147,7 @@ export class InventoryItemAddComponent {
 
 				this.isSubmitting = true;
 
-				this.http.post(`${environment.apiBaseUrl}/api/inventoryItems`, this.itemForm.value).subscribe({
+				this.http.post(`${environment.apiBaseUrl}/api/inventory-items`, this.itemForm.value).subscribe({
 						next: () => {
 								this.successMessage = 'Inventory item created successfully.';
 								this.itemForm.reset({

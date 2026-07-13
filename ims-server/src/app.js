@@ -37,6 +37,13 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // This allows all origins
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allowed request methods
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // Allowed headers
+
+  // Preflight requests never reach a route handler, so respond here with 204
+  // instead of letting them fall through to the 404 handler.
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
   next();
 });
 
