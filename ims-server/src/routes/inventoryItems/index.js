@@ -11,10 +11,11 @@ const createError = require('http-errors');
 const router = express.Router();
 
 const { InventoryItem } = require('../../models/inventory-item.js');
-const { addInventoryItemSchema } = require('../../schemas.js');
+const { addInventoryItemSchema, updateInventoryItemSchema } = require('../../schemas.js');
 
 const ajv = new Ajv();
 const validateAddInventoryItem = ajv.compile(addInventoryItemSchema);
+const validateUpdateInventoryItem = ajv.compile(updateInventoryItemSchema);
 
 /**
  * GET /api/inventory-items
@@ -89,6 +90,45 @@ router.get('/:id', async (req, res, next) => {
         next(err);
     }
 });
+
+/**
+ * PUT /api/inventory-items/:id
+ * Sprint 2 | Aisha Keller
+ * File: ims-server/src/routes/inventoryItems/index.js
+ * 
+ * Updates an existing inventory item by its MongoDB _id. Validates the request body against the updateInventoryItemSchema. Responds 404 (via the shared error-handler middleware) both when no document matches a well-formed id, and when the id itself is not a valid ObjectId.
+ */
+
+router.put('/:id', async (req, res, next) => {
+    try {
+        const valid = validateUpdateInventoryItem(req.body);
+
+        if (!valid) {
+            return next(createError(400, ajv.errorsText(validateUpdateInventoryItem.errors)));
+        }
+        const updatedItem = await InventoryItem.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedItem) {
+            return next(createError(404, 'Inventory item not found'));
+        }
+
+        res.status(200).json({
+            message: 'Inventory item updated successfully',
+            item: updatedItem
+        });
+    } catch (err) {
+        if (err.name === 'CastError') {
+            return next(createError(404, 'Inventory item not found'));
+        }
+        console.error(`Error while updating inventory item: ${err}`);
+        next(err);
+    }
+});
+
 
 /**
  * DELETE /api/inventory-items/:id

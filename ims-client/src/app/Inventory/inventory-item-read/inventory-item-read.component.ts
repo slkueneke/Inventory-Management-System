@@ -123,6 +123,14 @@ export interface InventoryItem {
               </table>
             </div>
           </div>
+          <!-- Added so users can jump from the read view into the update form. By Aisha Keller Sprint 2 -->
+          <a
+            *ngIf="item"
+            [routerLink]="['/inventory-items', item._id, 'edit']"
+            class="btn btn--primary"
+          >
+            Edit Item
+          </a>
           <button
             routerLink="/inventory-items"
             class="btn btn--secondary"

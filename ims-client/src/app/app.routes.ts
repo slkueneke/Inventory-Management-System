@@ -6,10 +6,11 @@
  */
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { InventoryItemListComponent } from './Inventory/inventory-item-list/inventory-item-list.component';
-import { InventoryItemAddComponent } from './Inventory/inventory-item-add/inventory-item-add.component';
-import { ReadInventoryItemComponent } from './Inventory/inventory-item-read/inventory-item-read.component';
-import { InventoryItemDeleteComponent } from './Inventory/inventory-item-delete/inventory-item-delete.component';
+import { InventoryItemListComponent } from './inventory/inventory-item-list/inventory-item-list.component';
+import { InventoryItemAddComponent } from './inventory/inventory-item-add/inventory-item-add.component';
+import { ReadInventoryItemComponent } from './inventory/inventory-item-read/inventory-item-read.component';
+import { InventoryItemUpdateComponent } from './inventory/inventory-item-update/inventory-item-update.component';
+import { InventoryItemDeleteComponent } from './inventory/inventory-item-delete/inventory-item-delete.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +36,10 @@ export const routes: Routes = [
     {
         path: 'inventory-items/:id',
         component: ReadInventoryItemComponent
+    },
+    {
+        path: 'inventory-items/:id/edit',
+        component: InventoryItemUpdateComponent
     },
     {
         path: '**',
